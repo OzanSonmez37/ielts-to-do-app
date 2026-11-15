@@ -2,7 +2,7 @@ import { Pool } from "pg";
 
 const g = globalThis as unknown as { pgPool?: Pool; pgReady?: Promise<void> };
 
-export const pool = g.pgPool ?? new Pool({ connectionString: process.env.DATABASE_URL });
+export const pool = g.pgPool ?? new Pool({ connectionString: process.env.DATABASE_URL, max: 5 });
 if (process.env.NODE_ENV !== "production") g.pgPool = pool;
 
 // Creates / upgrades the table on first use, so there is no separate migration step.
